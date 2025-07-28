@@ -32,6 +32,9 @@ pub struct Activity<'a> {
 
     #[serde(skip_serializing_if = "Option::is_none", rename = "type")]
     activity_type: Option<ActivityType>,
+
+    #[serde(skip_serializing_if = "Option::is_none", rename = "status_display_type")]
+    status_display_type: Option<u8>,
 }
 
 /// A struct representing an `Activity`'s timestamps
@@ -133,6 +136,7 @@ impl<'a> Activity<'a> {
             secrets: None,
             timestamps: None,
             activity_type: None,
+            status_display_type: None,
         }
     }
 
@@ -189,6 +193,14 @@ impl<'a> Activity<'a> {
     /// Add an `ActivityType` to this activity
     pub fn activity_type(mut self, activity_type: ActivityType) -> Self {
         self.activity_type = Some(activity_type);
+        self
+    }
+
+    /// Sets the status display type.
+    ///
+    /// Change display from "Watching <App name>" to "Watching <mvie/show title>".
+    pub fn status_display_type(mut self, status_display_type: u8) -> Self {
+        self.status_display_type = Some(status_display_type);
         self
     }
 }
